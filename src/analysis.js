@@ -22,6 +22,11 @@ export const calculatePopulation = async (population, isochrone) => {
   return populationInRange;
 };
 
+export const calculatePopulationScore = (population) => {
+  if (population < 10000) return 0.01 * population - 1000;
+  else return Math.min(0.009 * population - 900, 900);
+};
+
 // (async () => {
 //   //const a = { type: "FeatureCollection", features: await intersection() };
 //   console.log(await intersection());

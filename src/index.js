@@ -2,7 +2,7 @@ import * as R from "rambda";
 import express from "express";
 import { loadPopulationDataPolygons } from "./dataFileUtils.js";
 import * as dotenv from "dotenv";
-import { calculatePopulation } from "./analysis.js";
+import { calculatePopulation, calculatePopulationScore } from "./analysis.js";
 import { getIsochrone } from "./isochrone.js";
 import { getCityBikes } from "./citybikes.js";
 import {
@@ -50,15 +50,27 @@ app.get("/estimate", async (req, res) => {
     req.query.isochroneTransitMode,
     req.query.isochroneTimeRange
   );
-  const cityBikes = getCityBikes(req.query.latitude, req.query.longitude, isochrone)
-  console.log(cityBikes)
+  const cityBikes = getCityBikes(
+    req.query.latitude,
+    req.query.longitude,
+    isochrone
+  );
+
+  console.log(cityBikes);
+  const population = await calculatePopulation(
+    req.app.locals.populationData,
+    isochrone
+  );
+  const reachablePopulation = {
+    population: population,
+    score: calculatePopulationScore(population),
+  };
+  console.log(reachablePopulation);
+
   res.json({
-    reachablePopulation: await calculatePopulation(
-      req.app.locals.populationData,
-      isochrone
-    ),
+    reachablePopulation: reachablePopulation,
+    cityBikes: cityBikes,
     isochoroneGeoJson: isochrone,
-    cityBikes: cityBikes
   });
 });
 
