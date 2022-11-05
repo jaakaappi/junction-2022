@@ -71,6 +71,15 @@ export const getPOIs = (isochrone) => {
   return sortedPOIs;
 };
 
-export const getPOIScore = () => {
-  return 0;
+export const getPOIScore = ({
+  shops,
+  restaurants,
+  entertainment,
+} = sortedPOIs) => {
+  const count = shops.length + restaurants.length + entertainment.length;
+  if (count <= 10) {
+    return -10 * count;
+  } else {
+    return Math.min(count * 0.5, 300);
+  }
 };
