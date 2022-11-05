@@ -9,16 +9,20 @@ const POIBelongsToCategory = (categoryName, categoryValues, POI) => {
     return "amenity";
   }
 
-  categoryValues.forEach((category) => {
-    if (category in POI.properties) {
-      if (
-        POI.properties[category] !== undefined &&
-        POI.properties[category] !== null
-      ) {
-        return category;
+  if (
+    categoryValues.some((category) => {
+      if (category in POI.properties) {
+        if (
+          POI.properties[category] !== undefined &&
+          POI.properties[category] !== null
+        ) {
+          return category;
+        }
       }
-    }
-  });
+    })
+  ) {
+    return "category";
+  }
 
   return null;
 };
@@ -45,7 +49,9 @@ export const getPOIs = (isochrone) => {
 
   const sortedPOIs = includedPois.reduce(
     (previous, current) => {
-      if (POIBelongsToCategory("shops", ["shop"], current) !== null) {
+      if (
+        POIBelongsToCategory("shops", ["shop", "clothes"], current) !== null
+      ) {
         return { ...previous, shops: [...previous.shops, current] };
       } else if (
         POIBelongsToCategory(
