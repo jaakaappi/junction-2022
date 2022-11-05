@@ -68,7 +68,20 @@ export const getPOIs = (isochrone) => {
     }
   );
 
-  return sortedPOIs;
+  return {
+    shops: {
+      type: "FeatureCollection",
+      features: sortedPOIs.shops,
+    },
+    restaurants: {
+      type: "FeatureCollection",
+      features: sortedPOIs.restaurants,
+    },
+    entertainment: {
+      type: "FeatureCollection",
+      features: sortedPOIs.entertainment,
+    },
+  };
 };
 
 export const getPOIScore = ({
