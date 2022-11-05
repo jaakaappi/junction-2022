@@ -1,0 +1,17 @@
+{
+  "name": "junction-2022",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jaakaappi/junction-2022.git",
+  "author": "Esa Niemi <esa.niemi@protonmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon ./src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
