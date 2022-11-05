@@ -9,6 +9,7 @@ import {
   SUPPORTED_ISOCHRONE_TIME_RANGES,
   SUPPORTED_ISOCHRONE_TRAVEL_MODES,
 } from "./constants.js";
+import { getPOIs, getPOIScore } from "./pois.js";
 
 dotenv.config();
 const app = express();
@@ -68,9 +69,17 @@ app.get("/estimate", async (req, res) => {
   };
   //console.log(reachablePopulation);
 
+  const sortedPOIs = getPOIs(isochrone);
+  const POIScore = getPOIScore(sortedPOIs);
+  const POIs = {
+    score: POIScore,
+    POIs: sortedPOIs,
+  };
+
   res.json({
     reachablePopulation: reachablePopulation,
     cityBikes: cityBikes,
+    POIs: POIs,
     isochoroneGeoJson: isochrone,
   });
 });
