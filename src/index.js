@@ -9,9 +9,8 @@ import {
   SUPPORTED_ISOCHRONE_TRAVEL_MODES,
 } from "./constants.js";
 
-const app = express();
-
 dotenv.config();
+const app = express();
 
 const requiredEnvVars = ["GEOAPIFY_KEY", "PORT"];
 requiredEnvVars.map((envVar) => {
@@ -59,6 +58,6 @@ app.get("/estimate", async (req, res) => {
   });
 });
 
-app.listen(process.env.port, () => {
+app.listen(process.env.PORT, () => {
   console.log("Awesome server is up");
 });

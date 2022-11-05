@@ -1,12 +1,11 @@
 FROM node:18
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm install
-RUN npm ci --only=production
-
 COPY . .
 
+RUN npm install
+#RUN npm ci --only=production
+
 EXPOSE 8080
-CMD [ "node", "server.js" ]
+#CMD ["tail", "-f", "/dev/null"]
+CMD [ "node", "./src/index.js" ]
