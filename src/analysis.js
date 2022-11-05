@@ -18,7 +18,8 @@ export const calculatePopulation = async (population, isochrone) => {
   return populationInRange;
 };
 
-export const calculatePopulationScore = (population) => {
-  if (population < 10000) return 0.01 * population - 1000;
-  else return Math.min(0.009 * population - 900, 900);
+export const calculatePopulationScore = (population, time) => {
+  const limit = time * 500;
+  const res = (population - limit) * 0.1;
+  return Math.min(1000, Math.max(-1000, res));
 };
