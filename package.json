@@ -5,11 +5,18 @@
   "repository": "https://github.com/jaakaappi/junction-2022.git",
   "author": "Esa Niemi <esa.niemi@protonmail.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "nodemon ./src/index.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "@turf/boolean-within": "^6.5.0",
+    "@turf/flatten": "^6.5.0",
+    "@turf/intersect": "^6.5.0",
+    "express": "^4.18.2",
+    "fetch": "^1.1.0",
+    "node-fetch": "^3.2.10",
+    "rambda": "^7.3.0"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
