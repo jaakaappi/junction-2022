@@ -15,6 +15,11 @@ export const calculatePopulation = async (population, isochrone) => {
       return intersects;
     })
     .reduce((prev, current) => current.properties["ASUKKAITA"] + prev, 0);
+<<<<<<< HEAD
+=======
+
+  //console.log(populationInRange);
+>>>>>>> 32d1682 (fix bike bug if no bike stations inside area)
   return populationInRange;
 };
 

@@ -56,7 +56,7 @@ app.get("/estimate", async (req, res) => {
     req.query.longitude,
     isochrone
   );
-  console.log(cityBikes);
+  //console.log(cityBikes);
 
   const population = await calculatePopulation(
     req.app.locals.populationData,
@@ -66,7 +66,7 @@ app.get("/estimate", async (req, res) => {
     population: population,
     score: calculatePopulationScore(population),
   };
-  console.log(reachablePopulation);
+  //console.log(reachablePopulation);
 
   res.json({
     reachablePopulation: reachablePopulation,

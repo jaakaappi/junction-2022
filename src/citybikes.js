@@ -13,22 +13,40 @@ const getCityBikesInsideArea = (isochrone) => {
 };
 
 const getNearestBikeStation = (marker, bikes) => {
-    const nearest = nearestPoint(marker, bikes)
-    return nearest
+    if (bikes.features.length) {
+        const nearest = nearestPoint(marker, bikes)
+        return nearest
+    } else {
+        return null
+    }
+    
 };
+
+const getDistanceToNearestStation = (marker, nearestStation) => {
+    if (nearestStation) {
+        return distance(marker, nearestStation, {units: 'kilometers'})
+    } else {
+        return null // 100 kilometers
+    }
+}
 
 const getCityBikeScore = (nearestStationDistance) => {
     // 0 meters => 100 score; >= 1000 meters => -100 score
-    const inMeters = nearestStationDistance * 1000
-    const score = (-0.1) * inMeters + 100
-    return Math.max(score, -100)
+    if (nearestStationDistance !== null) {
+        const inMeters = nearestStationDistance * 1000
+        const score = (-0.1) * inMeters + 100
+        return Math.max(score, -100)
+    } else {
+        return -100
+    }
+    
 }
 
 export const getCityBikes = (latitude, longitude, isochrone) => {
     const marker = point([longitude, latitude])
     const bikesInArea = getCityBikesInsideArea(isochrone)
     const nearestStation = getNearestBikeStation(marker, bikesInArea)
-    const distanceToNearest = distance(marker, nearestStation, {units: 'kilometers'})
+    const distanceToNearest = getDistanceToNearestStation(marker, nearestStation)
     const cityBikeScore = getCityBikeScore(distanceToNearest)
     return {
         score: cityBikeScore,
