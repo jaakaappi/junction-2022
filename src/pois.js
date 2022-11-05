@@ -106,7 +106,7 @@ export const getPOIScore = ({
       return Math.min(count * 10, 600);
     }
   } else {
-    return null
+    return -500
   }
   
 };
