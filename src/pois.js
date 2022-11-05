@@ -95,18 +95,13 @@ export const getPOIScore = ({
   restaurants,
   entertainment,
 } = sortedPOIs) => {
-  const shopsLength = shops.features.length ? shops.features.length : null;
-  const restaurantsLength = restaurants.features.length ? restaurants.features.length : null;
-  const entertainmentLength = entertainment.features.length ? entertainment.features.length : null;
-  const count = shopsLength + restaurantsLength + entertainmentLength
-  if (!(shopsLength == null && restaurantsLength == null && entertainmentLength == null)) {
-    if (count <= 8) {
-      return -5 * count;
-    } else {
-      return Math.min(count * 10, 600);
-    }
+  const count =
+    shops.features.length +
+    restaurants.features.length +
+    entertainment.features.length;
+  if (count <= 8) {
+    return -5 * count;
   } else {
-    return null
+    return Math.min(count * 10, 600);
   }
-  
 };
