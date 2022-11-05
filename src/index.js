@@ -4,6 +4,7 @@ import { loadPopulationDataPolygons } from "./dataFileUtils.js";
 import * as dotenv from "dotenv";
 import { calculatePopulation } from "./analysis.js";
 import { getIsochrone } from "./isochrone.js";
+import { getCityBikes } from "./citybikes.js";
 import {
   SUPPORTED_ISOCHRONE_TIME_RANGES,
   SUPPORTED_ISOCHRONE_TRAVEL_MODES,
@@ -49,12 +50,15 @@ app.get("/estimate", async (req, res) => {
     req.query.isochroneTransitMode,
     req.query.isochroneTimeRange
   );
+  const cityBikes = getCityBikes(req.query.latitude, req.query.longitude, isochrone)
+  console.log(cityBikes)
   res.json({
     reachablePopulation: await calculatePopulation(
       req.app.locals.populationData,
       isochrone
     ),
     isochoroneGeoJson: isochrone,
+    cityBikes: cityBikes
   });
 });
 
