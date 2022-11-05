@@ -90,9 +90,14 @@ export const getPOIScore = ({
   entertainment,
 } = sortedPOIs) => {
   const count = shops.length + restaurants.length + entertainment.length;
-  if (count <= 10) {
-    return -10 * count;
+  if (count) {
+    if (count <= 8) {
+      return -5 * count;
+    } else {
+      return Math.min(count * 10, 600);
+    }
   } else {
-    return Math.min(count * 0.5, 300);
+    return null
   }
+  
 };
