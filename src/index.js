@@ -71,6 +71,7 @@ app.get("/estimate", async (req, res) => {
 
   const sortedPOIs = getPOIs(isochrone);
   const POIScore = getPOIScore(sortedPOIs);
+  console.log(`poi score ${POIScore}`)
   const POIs = {
     score: POIScore,
     POIs: sortedPOIs,
