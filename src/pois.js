@@ -93,7 +93,6 @@ export const getPOIScore = ({
   const restaurantsLength = restaurants.features.length ? restaurants.features.length : null;
   const entertainmentLength = entertainment.features.length ? entertainment.features.length : null;
   const count = shopsLength + restaurantsLength + entertainmentLength
-  console.log((!(shopsLength == null && restaurantsLength == null && entertainmentLength == null)));
   if (!(shopsLength == null && restaurantsLength == null && entertainmentLength == null)) {
     if (count <= 8) {
       return -5 * count;
