@@ -55,6 +55,7 @@ app.get("/estimate", async (req, res) => {
       req.app.locals.populationData,
       isochrone
     ),
+    isochoroneGeoJson: isochrone,
   });
 });
 

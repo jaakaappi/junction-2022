@@ -1,14 +1,7 @@
 import booleanWithIn from "@turf/boolean-within";
 import intersect from "@turf/intersect";
 
-export const calculatePopulation = async (
-  population,
-  isochrone,
-  lat,
-  lon,
-  mode,
-  range
-) => {
+export const calculatePopulation = async (population, isochrone) => {
   const populationInRange = population.features
     .filter((popF) => {
       // if (f.geometry.type === 'MultiPolygon')
