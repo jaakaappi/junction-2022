@@ -89,11 +89,11 @@ export const getPOIScore = ({
   restaurants,
   entertainment,
 } = sortedPOIs) => {
-  const shops = shops.length ? shops.length : null;
-  const restaurants = restaurants.length ? restaurants.length : null;
-  const entertainment = entertainment.length ? entertainment.length : null;
+  const shopsLength = shops.length ? shops.length : null;
+  const restaurantsLength = restaurants.length ? restaurants.length : null;
+  const entertainmentLength = entertainment.length ? entertainment.length : null;
   
-  if (shops != null && restaurants != null && entertainment != null) {
+  if (shopsLength != null && restaurantsLength != null && entertainmentLength != null) {
     if (count <= 8) {
       return -5 * count;
     } else {
