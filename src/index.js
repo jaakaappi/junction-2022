@@ -30,7 +30,7 @@ app.get("/health", (req, res) => {
 // Suitability estimate for a WGS84 location https://developer.apple.com/documentation/corelocation/cllocationcoordinate2d
 app.get("/estimate", async (req, res) => {
   if (R.isNil(req.query.latitude) || R.isNil(req.query.longitude))
-    res.status(400).send("Missing or bad coordinate information");
+    res.status(400).send("Missing or bad coordinates");
 
   if (
     R.isNil(req.query.isochroneTransitMode) ||
@@ -42,7 +42,7 @@ app.get("/estimate", async (req, res) => {
     R.isNil(req.query.isochroneTimeRange) ||
     !SUPPORTED_ISOCHRONE_TIME_RANGES.includes(req.query.isochroneTimeRange)
   )
-    res.status(400).send("Missing or bad isochrone time ranges");
+    res.status(400).send("Missing or bad isochrone time range");
 
   const isochrone = await getIsochrone(
     req.query.latitude,
@@ -50,13 +50,14 @@ app.get("/estimate", async (req, res) => {
     req.query.isochroneTransitMode,
     req.query.isochroneTimeRange
   );
+
   const cityBikes = getCityBikes(
     req.query.latitude,
     req.query.longitude,
     isochrone
   );
-
   console.log(cityBikes);
+
   const population = await calculatePopulation(
     req.app.locals.populationData,
     isochrone
