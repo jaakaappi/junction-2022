@@ -17,7 +17,9 @@ export const intersection = async (population, lat, lon, mode, range) => {
   // const response2 = fs.readFileSync("public/vaesto_2021_4326.geojson");
   // const population = flatten(JSON.parse(response2.toString()));
 
-  const populationInRange = population.features
+  console.log("population);
+
+  return population.features
     .filter((popF) => {
       // if (f.geometry.type === 'MultiPolygon')
       // console.log(f.geometry.type, isochrone.type);
@@ -32,13 +34,10 @@ export const intersection = async (population, lat, lon, mode, range) => {
       return intersects;
     })
     .reduce((prev, current) => current.properties["ASUKKAITA"] + prev, 0);
-
-  console.log(populationInRange);
-  return populationInRange;
 };
 
-// (async () => {
-//   //const a = { type: "FeatureCollection", features: await intersection() };
-//   console.log(await intersection());
-//   //await fs.writeFileSync("äitis", JSON.stringify(a));
-// })();
+(async () => {
+  //const a = { type: "FeatureCollection", features: await intersection() };
+  console.log(await intersection());
+  //await fs.writeFileSync("äitis", JSON.stringify(a));
+})();

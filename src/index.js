@@ -1,8 +1,13 @@
 import * as R from "rambda";
 import express from "express";
-import { loadPopulationDataPolygons } from "./dataUtils.js";
+import { loadPopulationDataPolygons } from "./dataFileUtils.js";
 import * as dotenv from "dotenv";
-import { intersection } from "./isocrone.js";
+import { calculatePopulation } from "./analysis.js";
+import { getIsochrone } from "./isochrone.js";
+import {
+  SUPPORTED_ISOCHRONE_TIME_RANGES,
+  SUPPORTED_ISOCHRONE_TRAVEL_MODES,
+} from "./constants.js";
 
 const app = express();
 
@@ -27,8 +32,29 @@ app.get("/estimate", async (req, res) => {
   if (R.isNil(req.query.latitude) || R.isNil(req.query.longitude))
     res.status(400).send("Missing or bad coordinate information");
 
+  if (
+    R.isNil(req.query.isochroneTransitMode) ||
+    !SUPPORTED_ISOCHRONE_TRAVEL_MODES.includes(req.query.isochroneTransitMode)
+  )
+    res.status(400).send("Missing or bad isochrone transit mode");
+
+  if (
+    R.isNil(req.query.isochroneTimeRange) ||
+    !SUPPORTED_ISOCHRONE_TIME_RANGES.includes(req.query.isochroneTimeRange)
+  )
+    res.status(400).send("Missing or bad isochrone time ranges");
+
+  const isochrone = await getIsochrone(
+    req.query.latitude,
+    req.query.longitude,
+    req.query.isochroneTransitMode,
+    req.query.isochroneTimeRange
+  );
   res.json({
-    reachablePopulation: await intersection(req.app.locals.populationData),
+    reachablePopulation: await calculatePopulation(
+      req.app.locals.populationData,
+      isochrone
+    ),
   });
 });
 
