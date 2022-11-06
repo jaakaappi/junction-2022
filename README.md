@@ -1,4 +1,7 @@
-# junction-2022
+# NEBILA
+**Ne**w **B**usiness **I**nteractive **L**ocation **A**nalytics
+
+<br>
 
 Location is an important factor that can make or break the success of a
 business. NEBILA helps the business owners to evaluate potential locations by
