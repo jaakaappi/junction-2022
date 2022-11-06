@@ -70,7 +70,7 @@ app.get("/estimate", async (req, res) => {
   );
   const reachablePopulation = {
     population: population,
-    score: calculatePopulationScore(population),
+    score: calculatePopulationScore(population, req.query.isochroneTimeRange),
   };
   console.log("Population", (Date.now() - timestamp) / 1000);
   //console.log(reachablePopulation);
