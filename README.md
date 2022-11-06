@@ -30,3 +30,15 @@ paralleling and caching most used computations using smarter data structures for
 intersection calculations, like quad trees. Easiest approach to accomplish this
 is to move most of the datasets into a PostGIS database and do intersect
 calculations there.
+
+The client code can be found [here](https://github.com/ootsamo/junction-2022-client).
+
+![IMG_0005](https://user-images.githubusercontent.com/1549989/200160379-a933a426-13df-4636-a976-20093ac6043a.PNG)
+![IMG_0006](https://user-images.githubusercontent.com/1549989/200160426-b00ebe90-09b9-4574-a122-dbe6adfe13ac.jpg)
+![IMG_0007](https://user-images.githubusercontent.com/1549989/200160429-86864fb7-d62c-4da1-b2aa-fbe7055db6c2.PNG)
+![IMG_F8FB087D5F68-1](https://user-images.githubusercontent.com/1549989/200160436-b645914f-b3bc-46b7-9bbe-4d306c026c2b.jpeg)
+
+
+
+
+
