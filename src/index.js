@@ -45,20 +45,25 @@ app.get("/estimate", async (req, res) => {
   )
     res.status(400).send("Missing or bad isochrone time range");
 
+  let timestamp = Date.now();
   const isochrone = await getIsochrone(
     req.query.latitude,
     req.query.longitude,
     req.query.isochroneTransitMode,
     req.query.isochroneTimeRange
   );
+  console.log("Isochrone", (Date.now() - timestamp) / 1000);
 
+  timestamp = Date.now();
   const cityBikes = getCityBikes(
     req.query.latitude,
     req.query.longitude,
     isochrone
   );
+  console.log("Citybikes", (Date.now() - timestamp) / 1000);
   //console.log(cityBikes);
 
+  timestamp = Date.now();
   const population = await calculatePopulation(
     req.app.locals.populationData,
     isochrone
@@ -67,14 +72,17 @@ app.get("/estimate", async (req, res) => {
     population: population,
     score: calculatePopulationScore(population),
   };
+  console.log("Population", (Date.now() - timestamp) / 1000);
   //console.log(reachablePopulation);
 
+  timestamp = Date.now();
   const sortedPOIs = getPOIs(isochrone);
   const POIScore = getPOIScore(sortedPOIs);
   const POIs = {
     score: POIScore,
     POIs: sortedPOIs,
   };
+  console.log("POIs", (Date.now() - timestamp) / 1000);
 
   res.json({
     reachablePopulation: reachablePopulation,
